@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --base: 1.35;
+}
+
+body {
+  background-color: #f4f6f4;
+}
+
+.truncated-text p {
+  max-height: calc(
+    5.5rem * var(--base)
+  ); /* Set a cut-off point for the content */
+  overflow: hidden; /* Cut off the content */
+  position: relative; /* needed for :after */
+}
+
+.truncated-text p:after {
+  content: "";
+  background: linear-gradient(to right, transparent, var(--background) 80%);
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(255, 255, 255) 50%,
+    rgb(255, 255, 255) 50%,
+    rgb(255, 255, 255) 100%
+  );
+  height: calc(1rem * var(--base) + 1px);
+  position: absolute;
+  bottom: 0; /* Adjusted to align with the bottom of the text */
+  right: 0; /* Adjusted to align with the right side of the text */
+  width: 100%;
+}
+
+.truncated-text-dark p {
+  max-height: calc(
+    5.5rem * var(--base)
+  ); /* Set a cut-off point for the content */
+  overflow: hidden; /* Cut off the content */
+  position: relative; /* needed for :after */
+}
+
+.truncated-text-dark p:after {
+  content: "";
+  background: linear-gradient(to right, transparent, var(--background) 80%);
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0) 50%,
+    rgb(0, 0, 0) 50%,
+    rgb(0, 0, 0) 100%
+  );
+  height: calc(1rem * var(--base) + 1px);
+  position: absolute;
+  bottom: 0; /* Adjusted to align with the bottom of the text */
+  right: 0; /* Adjusted to align with the right side of the text */
+  width: 100%;
+}
