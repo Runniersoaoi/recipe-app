@@ -12,7 +12,7 @@ function App() {
     <div className={`${theme ? "bg-gray-200" : "bg-zinc-900 "}`}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/recipe-app" element={<Home />} />
           <Route path="/search/:i" element={<SearchPage />} />
           <Route path="/recipe/:id" element={<ReceapPage />} />
         </Routes>

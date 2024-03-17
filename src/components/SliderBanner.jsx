@@ -5,8 +5,7 @@ import { getReceaps } from "../api/getReceaps.js";
 import Section from "./Section.jsx";
 import Container from "./Container.jsx";
 import ItemSliderBanner from "./ItemSliderBanner.jsx";
-
-const receapsRandom = await getReceaps();
+import { useState, useEffect } from "react";
 
 const settings = {
   dots: true,
@@ -30,15 +29,37 @@ const settings = {
 };
 
 const SliderBanner = () => {
+  const [recipe, setRecipe] = useState([]);
+
+  useEffect(() => {
+    const fetchReceaps = async () => {
+      try {
+        const receaps = await getReceaps();
+        setRecipe(receaps);
+      } catch (error) {
+        console.error("Error fetching receaps:", error);
+      }
+    };
+
+    fetchReceaps();
+  }, []);
+
   return (
     <Section>
       <Container>
         <div>
-          <Slider {...settings}>
-            {receapsRandom.map((receap) => (
-              <ItemSliderBanner key={receap.meals[0].idMeal} receap={receap} />
-            ))}
-          </Slider>
+          {recipe.length !== 0 ? (
+            <Slider {...settings}>
+              {recipe.map((receap) => (
+                <ItemSliderBanner
+                  key={receap.meals[0].idMeal}
+                  receap={receap}
+                />
+              ))}
+            </Slider>
+          ) : (
+            <div>Cargando... </div>
+          )}
         </div>
       </Container>
     </Section>

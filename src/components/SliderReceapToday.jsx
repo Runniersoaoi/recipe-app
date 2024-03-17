@@ -3,9 +3,7 @@ import ItemReceapToday from "./ItemReceapToday";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
-
-const canadianReceaps = await getCanadianReceaps();
-console.log(canadianReceaps);
+import { useState, useEffect } from "react";
 
 const settings = {
   dots: true,
@@ -54,12 +52,32 @@ const settings = {
 };
 
 const SliderReceapToday = () => {
+  const [recipeCanadian, setRecipeCanadian] = useState([]);
+
+  useEffect(() => {
+    const fetchReceaps = async () => {
+      try {
+        const receaps = await getCanadianReceaps();
+        setRecipeCanadian(receaps);
+      } catch (error) {
+        console.error("Error fetching receaps:", error);
+      }
+    };
+
+    fetchReceaps();
+  }, []);
   return (
-    <Slider {...settings}>
-      {canadianReceaps.meals.map((receap) => {
-        return <ItemReceapToday key={receap.idMeal} receap={receap} />;
-      })}
-    </Slider>
+    <div>
+      {recipeCanadian.length !== 0 ? (
+        <Slider {...settings}>
+          {recipeCanadian.meals.map((receap) => (
+            <ItemReceapToday key={receap.idMeal} receap={receap} />
+          ))}
+        </Slider>
+      ) : (
+        <div>Cargando</div>
+      )}
+    </div>
   );
 };
 

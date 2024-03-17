@@ -39,7 +39,7 @@ const NavBar = () => {
       <Container>
         <div className="flex items-center text-gray-50 gap-5 h-full justify-between font-normal">
           <div>
-            <Link to={"/"}>
+            <Link to={"/recipe-app"}>
               <div className="w-2/4 min-w-36">
                 <img src={logoReceapeAplicationSinBg} alt="" />
               </div>
